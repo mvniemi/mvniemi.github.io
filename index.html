@@ -5,7 +5,7 @@
     <title>JSON Editor</title>
 
     <!-- placeholders for the theme switcher -->
-    <link rel='stylesheet' id='theme_stylesheet'>
+    <link rel='stylesheet' id='theme_stylesheet' href="./css/bootstrap.min.css">
     <link rel='stylesheet' id='icon_stylesheet'>
     <style>[class*="foundicon-"] {font-family: GeneralFoundicons;font-style: normal;}</style>
 
@@ -24,24 +24,28 @@
 
 <body>
 
-<div class='container-fluid'>
+<div class="container-fluid">
     <div class="row">
-        <div width='1000'>
+            <div class="col-lg offset-1">
             <h2>Teh Schema Wizard</h2>
-
-            <div class="col-sm-5 small-5">
+            </div>
+    </div>
+    <div class="row">
+            <div class="col-md-4 ">
             <p>
-                <input type="file" id="schema_input" name="file[]" value = "Upload Schema" class="hidden"/>
+                <input type="file" id="schema_input" name="file[]" value = "Upload Schema" class="hidden-lg-down hidden" />
                 <button id="upload_schema_button" class='btn btn-primary'>Upload Schema</button>
                 <button id="download_schema" class='btn btn-primary'>Download Schema</button>
             </p>
             </div>
 
 
-            <div class="col-sm-5 small-5">
-                <input type="file" id="json_input" name="file[]" value = "Upload Schema" class="hidden"/>
+            <div class="col-md-4">
+                <input type="file" id="json_input" name="file[]" value = "Upload Schema" class="hidden-lg-down hidden"/>
                 <button id="upload_json_button" class='btn btn-primary'>Upload Json</button>
+                <p>
                 <button id="download_json" class='btn btn-primary'>Download Json</button>
+            </p>
 
             </div>
                 <p>
@@ -52,12 +56,11 @@
             </p>
 
 
-        </div>
 
 
     </div>
     <div class="row">
-        <div width="1900"><div id='editor'></div></div>
+        <div class="col-lg-12" id='editor'></div>
     </div>
 
     <div class='row'>
@@ -355,7 +358,7 @@
                 barebones: '',
                 html: '',
                 bootstrap2: '//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css',
-                bootstrap3: '//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css',
+                bootstrap3: '//netdna.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css',
                 bootstrap4: '//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css',
                 foundation3: '//cdnjs.cloudflare.com/ajax/libs/foundation/3.2.5/stylesheets/foundation.css',
                 foundation4: '//cdn.jsdelivr.net/foundation/4.3.2/css/foundation.min.css',
