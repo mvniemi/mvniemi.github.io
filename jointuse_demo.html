@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8' />
+    <title>Get features under the mouse pointer</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.46.0/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.46.0/mapbox-gl.css' rel='stylesheet' />
+    <style>
+        body { margin:0; padding:0; }
+        #map { position:absolute; top:0; bottom:0; width:100%; }
+    </style>
+</head>
+<body>
+
+<style>
+    #features {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        width: 300px;
+        overflow: auto;
+        background: rgba(255, 255, 255, 0.8);
+    }
+
+    #features_fixed {
+        position: relative;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        width: 300px;
+        overflow: auto;
+        background: rgba(255, 255, 255, 0.8);
+    }
+    #map canvas {
+        cursor: crosshair;
+    }
+</style>
+<div id='map'></div>
+<pre id='features'></pre>
+<pre id="features_fixed"></pre>
+<script>
+    mapboxgl.accessToken = 'pk.eyJ1IjoicGF1bHJlYXZpcyIsImEiOiJjaW9kYmZvajMwMDBmdXBtM2t3ZWhqaTc2In0.hRt9vUV7YXoY29hJ2wjwLQ';
+    var textbox = document.getElementById('features');
+    var textbox_fixed = document.getElementById("features_fixed")
+    var map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/paulreavis/cjk65snjf30942smt9q8h23po',
+        zoom: 11,
+        center: [-81.517752,35.937585]
+    });
+
+    var textalive = true;
+
+    map.on('load', function () {
+
+        map.on('mousemove', function (e) {
+            var features = map.queryRenderedFeatures(e.point);
+
+            textbox.innerHTML = JSON.stringify(features, null, 2);
+            if (textalive == true) {
+                textbox_fixed.innerHTML = JSON.stringify(features, null, 2);
+                if (features[0] != undefined) {
+
+                    map.setFeatureState({source: features[0].source, sourceLayer: features[0].sourceLayer, id: features[0].id}, {hover : true})
+                    //    //
+                    //    console.log(features[0].layer.paint["line-width"][3]=30);
+                    //    console.log(features[0].layer.paint["line-width"][3]);
+                    //    // console.log(features[0].id);}
+                    //    // document.getElementById('features').innerHTML ;
+                    //    // //map.setPaintProperty
+                    //
+                }
+            }
+
+        });
+
+        var hoveredStateId =  null;
+
+        var layer_name = "rc-electrical"
+
+        map.on('click', function (e) {
+            textalive= !textalive//!(document.getElementById('features').contentEditable);
+            // console.log("click");
+            // console.log(textalive)
+        })
+
+        // map.on("mousemove", layer_name, function(e) {
+        //   if (e.features.length > 0) {
+        //     if (hoveredStateId) {
+        //       map.setFeatureState({ id: hoveredStateId}, { hover: false});
+        //     }
+        //     hoveredStateId = e.features[0].id;
+        //     map.setFeatureState({ id: hoveredStateId}, { hover: true});
+        //   }
+        // });
+
+        // Reset the state-fills-hover layer's filter when the mouse leaves the layer.
+        // map.on("mouseleave", layer_name, function() {
+        //   if (hoveredStateId) {
+        //     map.setFeatureState({ id: hoveredStateId}, { hover: false});
+        //   }
+        //   hoveredStateId =  null;
+        // });
+
+
+    })
+</script>
+
+</body>
+</html>
